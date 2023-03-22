@@ -9,6 +9,13 @@ M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 
+local servers = require("user.lsp.servers")
+for server, opts in pairs(servers) do
+	opts.capabilities = M.capabilities
+	require("lspconfig")[server].setup(opts)
+end
+
+
 M.setup = function()
 	local signs = {
 
@@ -71,12 +78,7 @@ local function lsp_keymaps(bufnr)
 	keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 end
 
-
 M.on_attach = function(client, bufnr)
-	if client.name == "tsserver" then
-		client.server_capabilities.documentFormattingProvider = false
-	end
-
 	if client.name == "lua_ls" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
