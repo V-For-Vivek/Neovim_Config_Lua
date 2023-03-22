@@ -69,8 +69,6 @@ keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 keymap("n", "ff", ":Telescope find_files <CR>", opts)
 keymap("n", "fl", ":Telescope live_grep <CR>", opts)
 
--- FZF --
-keymap('n', '<c-P>', "<cmd>lua require('fzf-lua').files()<CR>", opts)
 
 -- Block selection --
 keymap("n", "<S-Up>", "v<Up>", opts)
