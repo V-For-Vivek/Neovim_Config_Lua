@@ -62,9 +62,8 @@ return packer.startup(function(use)
 	use({ "folke/which-key.nvim" })
 	use({
 		"phaazon/hop.nvim",
-		branch = "v2", -- optional but strongly recommended
+		branch = "v2",
 		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
 			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
 		end,
 	})
@@ -79,7 +78,7 @@ return packer.startup(function(use)
 	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
-	use({ 'mfussenegger/nvim-jdtls' })
+	use({ "mfussenegger/nvim-jdtls" })
 
 	-- DAP
 	use({ "mfussenegger/nvim-dap" })
@@ -109,9 +108,10 @@ return packer.startup(function(use)
 
 	-- UI --
 	use({ "gen740/SmoothCursor.nvim" })
-	use({ "j-hui/fidget.nvim" })
 	use({ "folke/neodev.nvim" })
-	use({ 'simrat39/symbols-outline.nvim' })
+	use({ "simrat39/symbols-outline.nvim" })
+	use({ "j-hui/fidget.nvim" })
+	use({ "arkav/lualine-lsp-progress" })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
