@@ -60,9 +60,17 @@ return packer.startup(function(use)
 	use({ "lukas-reineke/indent-blankline.nvim" })
 	use({ "goolord/alpha-nvim" })
 	use({ "folke/which-key.nvim" })
+	use({
+		"phaazon/hop.nvim",
+		branch = "v2", -- optional but strongly recommended
+		config = function()
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	})
 
 	-- Colorscheme
-	use({ "navarasu/onedark.nvim" })
+	use({ "olimorris/onedarkpro.nvim" })
 
 	-- CMP
 	use({ "hrsh7th/nvim-cmp" })      -- The completion plugin
@@ -71,6 +79,7 @@ return packer.startup(function(use)
 	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
+	use({ 'mfussenegger/nvim-jdtls' })
 
 	-- DAP
 	use({ "mfussenegger/nvim-dap" })
@@ -102,6 +111,7 @@ return packer.startup(function(use)
 	use({ "gen740/SmoothCursor.nvim" })
 	use({ "j-hui/fidget.nvim" })
 	use({ "folke/neodev.nvim" })
+	use({ 'simrat39/symbols-outline.nvim' })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
