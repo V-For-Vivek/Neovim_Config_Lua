@@ -24,7 +24,7 @@ require("onedarkpro").setup({
 	}
 })
 
-local colorscheme = "onedark_dark"
+local colorscheme = "onedark_vivid"
 local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not status_ok then
 	return
