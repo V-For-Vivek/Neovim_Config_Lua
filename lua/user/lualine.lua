@@ -3,6 +3,8 @@ if not status_ok then
     return
 end
 
+local devicons = require("nvim-web-devicons")
+
 local diagnostics = {
     "diagnostics",
     sources = { "nvim_diagnostic" },
@@ -33,46 +35,105 @@ local progress = function()
     return chars[index]
 end
 
-local spaces = function()
-    return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+local mode = function()
+    -- NvimTree
+    if vim.bo.filetype == "NvimTree" then
+        if vim.api.nvim_get_mode()["mode"] == "n" then
+            return "" .. " NORMAL"
+        elseif vim.api.nvim_get_mode()["mode"] == "v" then
+            return "" .. " VISUAL"
+        end
+    end
+
+    -- Outline
+    if vim.bo.filetype == "Outline" then
+        if vim.api.nvim_get_mode()["mode"] == "n" then
+            return "" .. " NORMAL"
+        elseif vim.api.nvim_get_mode()["mode"] == "v" then
+            return "" .. " VISUAL"
+        end
+    end
+
+    -- NORMAL Mode
+    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "n" then
+        return "" .. " NORMAL"
+    end
+    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "n" then
+        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " NORMAL"
+    end
+
+    -- VISUAL Mode
+    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "v" then
+        return "" .. " VISUAL"
+    end
+    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "v" then
+        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " VISUAL"
+    end
+
+    -- COMMAND Mode
+    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "c" then
+        return "" .. " COMMAND"
+    end
+    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "c" then
+        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " COMMAND"
+    end
+
+    -- INSERT Mode
+    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "i" then
+        return "" .. " INSERT"
+    end
+    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "i" then
+        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " INSERT"
+    end
+
+    -- VISUAL BLOCK Mode
+    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "x" then
+        return "" .. " VI-BLOCK"
+    end
+    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "x" then
+        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " VI-BLOCK"
+    end
+
+    -- TERMINAL Mode
+    if vim.api.nvim_get_mode()["mode"] == "nt" then
+        return "" .. " TERMINAL"
+    end
+    if vim.api.nvim_get_mode()["mode"] == "t" then
+        return "" .. " INSERT"
+    end
 end
 
 local lsp_client = function()
-    return "🧬[LSP]: " .. vim.lsp.get_active_clients()[1].name
+    return " LSP [" .. vim.lsp.get_active_clients()[1].name .. "]"
 end
 
-statusline.setup({
+statusline.setup {
     options = {
-        icons_enabled = true,
         theme = "auto",
-        section_separators = { left = "", right = "" },
-        component_separators = { left = "", right = "" },
-        disabled_filetypes = { "alpha", "dashboard", "Outline" },
-        ignore_focus = {},
-        always_divide_middle = true,
-        globalstatus = false,
-        refresh = {
-            statusline = 1000,
-            tabline = 1000,
-            winbar = 1000,
-        },
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        disabled_filetypes = { "alpha", "dashboard" },
     },
     sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "branch", diff, diagnostics },
-        lualine_c = { "filename" },
-        lualine_x = { lsp_client, spaces, "fileformat", "filetype" },
-        lualine_y = { progress },
-        lualine_z = { "location" },
+        lualine_a = {
+            { mode, separator = { left = '', right = '' } },
+        },
+        lualine_b = { diagnostics, lsp_client },
+        lualine_c = { 'filename' },
+        lualine_x = { diff },
+        lualine_y = { 'fileformat', 'encoding', progress },
+        lualine_z = {
+            { 'location', separator = { left = '', right = '' } },
+        },
     },
     inactive_sections = {
-        lualine_a = {},
+        lualine_a = { 'filename' },
         lualine_b = {},
-        lualine_c = { "filename" },
-        lualine_x = { "location" },
+        lualine_c = {},
+        lualine_x = {},
         lualine_y = {},
-        lualine_z = {},
+        lualine_z = { 'location' },
     },
     tabline = {},
     extensions = {},
-})
+}
