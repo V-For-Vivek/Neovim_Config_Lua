@@ -44,10 +44,12 @@ local fileicon = function()
     if vim.bo.filetype == "Outline" then
         return ""
     end
+    if devicons.get_icon_by_filetype(vim.bo.filetype) then
+        return devicons.get_icon_by_filetype(vim.bo.filetype)
+    end
     if devicons.get_icon(vim.bo.filetype) == nil then
         return ""
     end
-    return devicons.get_icon(vim.bo.filetype)
 end
 
 local lsp_client = function()
