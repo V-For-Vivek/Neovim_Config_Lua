@@ -35,72 +35,19 @@ local progress = function()
     return chars[index]
 end
 
-local mode = function()
+local fileicon = function()
     -- NvimTree
     if vim.bo.filetype == "NvimTree" then
-        if vim.api.nvim_get_mode()["mode"] == "n" then
-            return "" .. " NORMAL"
-        elseif vim.api.nvim_get_mode()["mode"] == "v" then
-            return "" .. " VISUAL"
-        end
+        return ""
     end
-
     -- Outline
     if vim.bo.filetype == "Outline" then
-        if vim.api.nvim_get_mode()["mode"] == "n" then
-            return "" .. " NORMAL"
-        elseif vim.api.nvim_get_mode()["mode"] == "v" then
-            return "" .. " VISUAL"
-        end
+        return ""
     end
-
-    -- NORMAL Mode
-    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "n" then
-        return "" .. " NORMAL"
+    if devicons.get_icon(vim.bo.filetype) == nil then
+        return ""
     end
-    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "n" then
-        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " NORMAL"
-    end
-
-    -- VISUAL Mode
-    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "v" then
-        return "" .. " VISUAL"
-    end
-    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "v" then
-        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " VISUAL"
-    end
-
-    -- COMMAND Mode
-    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "c" then
-        return "" .. " COMMAND"
-    end
-    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "c" then
-        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " COMMAND"
-    end
-
-    -- INSERT Mode
-    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "i" then
-        return "" .. " INSERT"
-    end
-    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "i" then
-        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " INSERT"
-    end
-
-    -- VISUAL BLOCK Mode
-    if devicons.get_icon_by_filetype(vim.bo.filetype) == nil and vim.api.nvim_get_mode()["mode"] == "x" then
-        return "" .. " VI-BLOCK"
-    end
-    if devicons.get_icon_by_filetype(vim.bo.filetype) and vim.api.nvim_get_mode()["mode"] == "x" then
-        return devicons.get_icon_by_filetype(vim.bo.filetype) .. " VI-BLOCK"
-    end
-
-    -- TERMINAL Mode
-    if vim.api.nvim_get_mode()["mode"] == "nt" then
-        return "" .. " TERMINAL"
-    end
-    if vim.api.nvim_get_mode()["mode"] == "t" then
-        return "" .. " INSERT"
-    end
+    return devicons.get_icon(vim.bo.filetype)
 end
 
 local lsp_client = function()
@@ -116,12 +63,12 @@ statusline.setup {
     },
     sections = {
         lualine_a = {
-            { mode, separator = { left = '', right = '' } },
+            { "mode", separator = { left = '', right = '' } },
         },
         lualine_b = { diagnostics, lsp_client },
-        lualine_c = { 'filename' },
+        lualine_c = {},
         lualine_x = { diff },
-        lualine_y = { 'fileformat', 'encoding', progress },
+        lualine_y = { fileicon, 'encoding', progress },
         lualine_z = {
             { 'location', separator = { left = '', right = '' } },
         },
