@@ -15,7 +15,6 @@ for server, opts in pairs(servers) do
 	require("lspconfig")[server].setup(opts)
 end
 
-
 M.setup = function()
 	local signs = {
 
