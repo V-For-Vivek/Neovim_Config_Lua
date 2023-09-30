@@ -54,7 +54,6 @@ vim.g.indent_blankline_context_patterns = {
 
 vim.opt.list = true
 vim.opt.listchars:append "space:."
--- vim.opt.listchars:append "tab:"
 
 indent_blankline.setup {
     space_char_blankline = " ",

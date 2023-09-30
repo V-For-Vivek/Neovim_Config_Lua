@@ -22,7 +22,7 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.clang_format,
 		formatting.google_java_format,
-		formatting.prettierd,
+		formatting.prettier,
 		formatting.fixjson,
 		formatting.beautysh,
 		-- Code Actions

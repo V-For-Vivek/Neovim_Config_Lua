@@ -34,7 +34,7 @@ local options = {
 	linebreak = true, -- companion to wrap, don't split words
 	scrolloff = 8, -- minimal number of screen lines to keep above and below the cursor
 	sidescrolloff = 8, -- minimal number of screen columns either side of cursor if wrap is `false`
-	guifont = "FiraCode NF:h16", -- the font used in graphical neovim applications
+	guifont = "SFMono NFM:h18", -- the font used in graphical neovim applications
 	whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
 	omnifunc = "syntaxcomplete#Complete",
 	backspace = { "indent", "eol", "start" },
@@ -56,7 +56,7 @@ require("neodev").setup({
 
 vim.cmd([[
 if exists('g:nvui')
-	"NvuiOpacity 0.95
+	NvuiOpacity 0.95
 	NvuiPopupMenu v:true
 	NvuiFrameless v:true
 	"NvuiTitlebarFontFamily Gintronic\ NFM

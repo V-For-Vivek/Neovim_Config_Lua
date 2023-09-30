@@ -34,7 +34,7 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
-keymap('n', '<S-c>', ":bd<CR>", opts)
+keymap("n", "<S-c>", ":bd<CR>", opts)
 
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
@@ -68,7 +68,6 @@ keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 -- Telescope --
 keymap("n", "ff", ":Telescope find_files <CR>", opts)
 keymap("n", "fl", ":Telescope live_grep <CR>", opts)
-
 
 -- Block selection --
 keymap("n", "<S-Up>", "v<Up>", opts)

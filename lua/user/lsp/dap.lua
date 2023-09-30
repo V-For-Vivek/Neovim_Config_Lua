@@ -1,21 +1,17 @@
 local status_ok_dapui, dapui = pcall(require, "dapui")
 local status_ok_dap, dap = pcall(require, "dap")
-local status_ok_dapvt, dapvt = pcall(require, "nvim-dap-virtual-text")
 if not status_ok_dap then
     return
 end
 if not status_ok_dapui then
     return
 end
-if not status_ok_dapvt then
-    return
-end
 
 require('mason-nvim-dap').setup {
     automatic_setup = true,
+    handlers = {},
 }
 
-require('mason-nvim-dap').setup_handlers()
 vim.keymap.set('n', '<F5>', dap.continue)
 vim.keymap.set('n', '<F1>', dap.step_into)
 vim.keymap.set('n', '<F2>', dap.step_over)
